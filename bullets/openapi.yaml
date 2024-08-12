@@ -1,0 +1,36 @@
+openapi: 3.0.2
+info:
+  title: "弾丸API"
+  version: "1.0"
+tags:
+  - name: bullets
+paths:
+  /api/bullets:
+    get:
+      summary: 弾丸取得
+      description: |-
+        弾丸取得
+      tags:
+        - bullets
+      responses:
+        200:
+          $ref: "./fetch-bullet.response.yaml#/components/responses/OK"
+        204:
+          description: "NoContent"
+        500:
+          description: "Internal Server Error"
+    post:
+      summary: 弾丸登録
+      description: |-
+        弾丸登録
+      tags:
+        - bullets
+      responses:
+        201:
+          description: Create
+        400:
+          description: |-
+            Bad Request
+            - 弾丸名が被っている
+        500:
+          description: "Internal Server Error"

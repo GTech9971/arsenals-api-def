@@ -1,0 +1,42 @@
+openapi: 3.0.2
+info:
+  title: "銃弾モデル"
+  version: "1.0"
+paths: {}
+components:
+  schemas:
+    bulletName:
+      title: 弾丸名
+      type: string
+      minLength: 1
+      maxLength: 50
+      example: "9mm"
+
+    bulletId:
+      title: 弾丸ID
+      type: number
+      format: int
+      minimum: 100
+      example: 100
+
+    Bullet:
+      title: 弾丸
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/bulletId"
+        name:
+          $ref: "#/components/schemas/bulletName"
+        damage:
+          $ref: "#/components/schemas/Damage"
+      required:
+        - id
+        - name
+        - damage
+
+    Damage:
+      title: ダメージ
+      type: number
+      format: int
+      minimum: 1
+      example: 12
