@@ -1,0 +1,66 @@
+openapi: 3.0.2
+info:
+  title: "銃のモデル"
+  version: "1.0"
+paths: {}
+components:
+  schemas:
+    gunId:
+      title: 銃ID
+      type: number
+      format: int
+      example: 100
+      minimum: 100
+
+    gunName:
+      title: 銃名称
+      type: string
+      format: string
+      minLength: 1
+      maxLength: 20
+      example: "Glock22"
+
+    gunCapacity:
+      title: 装弾数
+      type: number
+      format: int
+      minimum: 1
+      maximum: 5000
+      example: 17
+
+    Gun:
+      title: 銃
+      description: |-
+
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/gunId"
+        name:
+          $ref: "#/components/schemas/gunName"
+        category:
+          $ref: "#/components/schemas/GunCategory"
+        capacity:
+          $ref: "#/components/schemas/gunCapacity"
+
+    gunCategoryId:
+      title: 銃カテゴリーID
+      type: number
+      format: int
+      example: 100
+      minimum: 100
+
+    gunCategoryName:
+      title: 銃カテゴリー名
+      type: string
+      example: "ハンドガン"
+      maxLength: 50
+
+    GunCategory:
+      title: カテゴリー
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/gunCategoryId"
+        name:
+          $ref: "#/components/schemas/gunCategoryName"

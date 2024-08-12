@@ -1,0 +1,32 @@
+openapi: 3.0.2
+info:
+  title: "銃操作API"
+  version: "1.0"
+tags:
+  - name: "guns"
+paths:
+  /api/guns:
+    get:
+      summary: 銃取得
+      description: |-
+        銃取得
+      tags:
+        - "guns"
+      parameters:
+        - $ref: "#/components/parameters/gunCategory"
+      responses:
+        200:
+          $ref: "./fetch-gun.response.yaml#/components/responses/OK"
+        204:
+          description: "NoContent"
+        500:
+          description: "Internal Server Error"
+
+components:
+  parameters:
+    gunCategory:
+      in: query
+      name: "category"
+      required: false
+      schema:
+        $ref: "./model.yaml#/components/schemas/gunCategoryId"

@@ -1,0 +1,22 @@
+openapi: 3.0.2
+info:
+  title: "common"
+  version: "1.0"
+paths: {}
+components:
+  schemas:
+    BaseResponse:
+      title: レスポンス
+      type: object
+      properties:
+        success:
+          title: 成功かどうか
+          type: boolean
+          example: true
+        data:
+          title: データ
+          type: object
+        message:
+          title: メッセージ
+          type: string
+          example: null
