@@ -1,0 +1,25 @@
+openapi: 3.0.2
+info:
+  title: "銃登録リクエストボディ"
+  version: "1.0"
+paths: {}
+components:
+  requestBodies:
+    gun:
+      description: "銃登録リクエストボディ"
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "./model.yaml#/components/schemas/gunName"
+              categoryId:
+                $ref: "./model.yaml#/components/schemas/gunCategoryId"
+              capacity:
+                $ref: "./model.yaml#/components/schemas/gunCapacity"
+            required:
+              - name
+              - categoryId
+              - capacity

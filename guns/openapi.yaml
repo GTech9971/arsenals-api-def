@@ -4,6 +4,7 @@ info:
   version: "1.0"
 tags:
   - name: "guns"
+  - name: "categories"
 paths:
   /api/guns:
     get:
@@ -17,6 +18,39 @@ paths:
       responses:
         200:
           $ref: "./fetch-gun.response.yaml#/components/responses/OK"
+        204:
+          description: "NoContent"
+        500:
+          description: "Internal Server Error"
+    post:
+      summary: 銃登録
+      description: |-
+        銃登録
+      tags:
+        - "guns"
+      requestBody:
+        $ref: "./registry-gun.request.yaml#/components/requestBodies/gun"
+      responses:
+        201:
+          $ref: "./registry-gun.response.yaml#/components/responses/Create"
+        400:
+          description: |-
+            Bad Request
+            - 銃の名前が被っている
+            - 銃カテゴリーが存在しない
+        500:
+          description: "Internal Server Error"
+
+  /api/categories:
+    get:
+      summary: "銃カテゴリー取得"
+      description: |-
+        銃カテゴリー取得
+      tags:
+        - "categories"
+      responses:
+        200:
+          $ref: "./fetch-category.response.yaml#/components/responses/OK"
         204:
           description: "NoContent"
         500:
