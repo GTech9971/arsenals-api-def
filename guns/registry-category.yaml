@@ -1,0 +1,37 @@
+openapi: 3.0.2
+info:
+  title: "銃カテゴリー登録"
+  version: "1.0"
+paths: {}
+components:
+  requestBodies:
+    registry:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "./model.yaml#/components/schemas/gunCategoryName"
+            required:
+              - name
+
+  responses:
+    Create:
+      description: |-
+        Create
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../commons/model.yaml#/components/schemas/BaseResponse"
+              - type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        $ref: "./model.yaml#/components/schemas/gunCategoryId"
+                    required:
+                      - id

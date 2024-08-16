@@ -93,7 +93,7 @@ paths:
         - guns
       parameters:
         - $ref: "#/components/parameters/gunId"
-        - $ref: "#/components/parameters/fieldMask"
+        - $ref: "#/components/parameters/gunFieldMask"
       requestBody:
         $ref: "./update-gun.request.yaml#/components/requestBodies/update"
       responses:
@@ -148,10 +148,74 @@ paths:
           description: "NoContent"
         500:
           description: "Internal Server Error"
+    post:
+      summary: "銃カテゴリー登録"
+      description: |-
+        銃カテゴリー登録
+      tags:
+        - "categories"
+      requestBody:
+        $ref: "registry-category.yaml#/components/requestBodies/registry"
+      responses:
+        201:
+          $ref: "registry-category.yaml#/components/responses/Create"
+        400:
+          description: |-
+            Bad Request
+            - カテゴリー名が被っている
+        500:
+          description: "Internal Server Error"
+
+  /api/categories/{categoryId}:
+    delete:
+      summary: 銃カテゴリー削除
+      description: |-
+        銃カテゴリー削除
+      tags:
+        - "categories"
+      parameters:
+        - $ref: "#/components/parameters/categoryId"
+      responses:
+        204:
+          description: "NoContent"
+        400:
+          description: |-
+            Bad Request
+            - カテゴリーIDの形式が不正
+            - 1件でもカテゴリーが銃に紐づいている場合、削除不可
+        404:
+          description: "Not Found"
+        500:
+          description: "Internal Server Error"
+    patch:
+      summary: 銃カテゴリー更新
+      description: |-
+        銃カテゴリー更新
+      tags:
+        - "categories"
+      parameters:
+        - $ref: "#/components/parameters/categoryId"
+        - $ref: "#/components/parameters/categoryFieldMask"
+      requestBody:
+        $ref: "./update-category.yaml#/components/requestBodies/update"
+      responses:
+        200:
+          description: OK
+        400:
+          description: |-
+            Bad Request
+            - 銃カテゴリーIDの形式が不正
+            - フィールドマスクがない
+            - フィールドマスクの値が不正
+            - 銃カテゴリー名称が被っている
+        404:
+          description: "Not Found"
+        500:
+          description: "Internal Server Error"
 
 components:
   parameters:
-    fieldMask:
+    gunFieldMask:
       in: query
       name: "fieldMask"
       description: |-
@@ -174,5 +238,20 @@ components:
       in: query
       name: "category"
       required: false
+      schema:
+        $ref: "./model.yaml#/components/schemas/gunCategoryId"
+
+    categoryFieldMask:
+      name: "fieldMask"
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+          - name
+    categoryId:
+      in: path
+      name: "categoryId"
+      required: true
       schema:
         $ref: "./model.yaml#/components/schemas/gunCategoryId"
