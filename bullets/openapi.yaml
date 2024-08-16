@@ -37,7 +37,7 @@ paths:
         500:
           description: "Internal Server Error"
 
-  /api/bullet/{bulletId}:
+  /api/bullets/{bulletId}:
     get:
       summary: 弾丸取得
       description: |-
@@ -59,3 +59,61 @@ paths:
             - 弾丸が存在しない
         500:
           description: "Internal Server Error"
+    delete:
+      summary: 弾丸削除
+      description: |-
+        弾丸削除
+        - 弾丸を削除することによって銃に紐づいている弾丸が0件になる場合は削除不可
+      tags:
+        - bullets
+      parameters:
+        - $ref: "./model.yaml#/components/parameters/bulletId"
+      responses:
+        204:
+          description: "NoContent"
+        400:
+          description: |-
+            Bad Request
+            - 弾丸IDの形式が不正
+            - 弾丸を削除することによって銃に紐づいている弾丸が0件になる場合は削除不可
+        404:
+          description: "Not Found"
+        500:
+          description: "Internal Server Error"
+    patch:
+      summary: 弾丸更新
+      description: |-
+        弾丸更新
+      tags:
+        - bullets
+      parameters:
+        - $ref: "./model.yaml#/components/parameters/bulletId"
+        - $ref: "#/components/parameters/fieldMask"
+      responses:
+        200:
+          description: OK
+        400:
+          description: |-
+            Bad Request
+            - 弾丸IDの形式が不正
+            - フィールドマスクがない
+            - 許可されているフィールドマスクの値でない
+        404:
+          description: "Not Found"
+        500:
+          description: "Internal Server Error"
+
+components:
+  parameters:
+    fieldMask:
+      name: "fieldMask"
+      in: query
+      allowEmptyValue: false
+      description: |-
+        弾丸更新の項目
+      required: true
+      schema:
+        type: string
+        enum:
+          - "damage"
+          - "name"
