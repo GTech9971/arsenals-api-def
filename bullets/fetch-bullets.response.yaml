@@ -16,9 +16,6 @@ components:
               - type: object
                 properties:
                   data:
-                    type: object
-                    properties:
-                      bullet:
-                        $ref: "./model.yaml#/components/schemas/Bullet"
-                    required:
-                      - bullet
+                    type: array
+                    items:
+                      $ref: "./model.yaml#/components/schemas/Bullet"

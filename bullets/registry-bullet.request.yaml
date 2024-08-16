@@ -1,0 +1,21 @@
+openapi: 3.0.2
+info:
+  title: "弾丸登録リクエスト"
+  version: "1.0"
+paths: {}
+components:
+  requestBodies:
+    request:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "./model.yaml#/components/schemas/bulletName"
+              damage:
+                $ref: "./model.yaml#/components/schemas/Damage"
+            required:
+              - name
+              - damage

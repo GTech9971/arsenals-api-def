@@ -14,7 +14,7 @@ paths:
         - bullets
       responses:
         200:
-          $ref: "./fetch-bullet.response.yaml#/components/responses/OK"
+          $ref: "./fetch-bullets.response.yaml#/components/responses/OK"
         204:
           description: "NoContent"
         500:
@@ -25,12 +25,37 @@ paths:
         弾丸登録
       tags:
         - bullets
+      requestBody:
+        $ref: "./registry-bullet.request.yaml#/components/requestBodies/request"
       responses:
         201:
-          description: Create
+          $ref: "./registry-bullet.response.yaml#/components/responses/Create"
         400:
           description: |-
             Bad Request
             - 弾丸名が被っている
+        500:
+          description: "Internal Server Error"
+
+  /api/bullet/{bulletId}:
+    get:
+      summary: 弾丸取得
+      description: |-
+        弾丸取得
+      tags:
+        - bullets
+      parameters:
+        - $ref: "./model.yaml#/components/parameters/bulletId"
+      responses:
+        200:
+          $ref: "./fetch-bullet.response.yaml#/components/responses/OK"
+        400:
+          description: |-
+            BadRequest
+            - 弾丸IDが不正
+        404:
+          description: |-
+            Not Found
+            - 弾丸が存在しない
         500:
           description: "Internal Server Error"

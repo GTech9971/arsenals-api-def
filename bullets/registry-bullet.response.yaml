@@ -1,13 +1,13 @@
 openapi: 3.0.2
 info:
-  title: "弾丸取得レスポンス"
+  title: "弾丸登録レスポンス"
   version: "1.0"
 paths: {}
 components:
   responses:
-    OK:
+    Create:
       description: |-
-        OK
+        Create
       content:
         application/json:
           schema:
@@ -18,7 +18,7 @@ components:
                   data:
                     type: object
                     properties:
-                      bullet:
-                        $ref: "./model.yaml#/components/schemas/Bullet"
+                      id:
+                        $ref: "./model.yaml#/components/schemas/bulletId"
                     required:
-                      - bullet
+                      - id
