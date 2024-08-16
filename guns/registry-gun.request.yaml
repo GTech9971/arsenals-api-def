@@ -19,6 +19,11 @@ components:
                 $ref: "./model.yaml#/components/schemas/gunCategoryId"
               capacity:
                 $ref: "./model.yaml#/components/schemas/gunCapacity"
+              useBullets:
+                title: 使用弾丸ID
+                type: array
+                items:
+                  $ref: "../bullets/model.yaml#/components/schemas/bulletId"
             required:
               - name
               - categoryId

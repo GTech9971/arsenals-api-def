@@ -31,7 +31,11 @@ components:
     Gun:
       title: 銃
       description: |-
-
+        - id
+        - 銃の名称
+        - カテゴリー
+        - 装弾数
+        - 使用する弾丸
       type: object
       properties:
         id:
@@ -42,6 +46,10 @@ components:
           $ref: "#/components/schemas/GunCategory"
         capacity:
           $ref: "#/components/schemas/gunCapacity"
+        bullets:
+          type: array
+          items:
+            $ref: "../bullets/model.yaml#/components/schemas/Bullet"
 
     gunCategoryId:
       title: 銃カテゴリーID

@@ -38,6 +38,10 @@ paths:
             Bad Request
             - 銃の名前が被っている
             - 銃カテゴリーが存在しない
+        404:
+          description: |-
+            Not Found
+            - 指定した弾丸IDが存在しない
         500:
           description: "Internal Server Error"
 
