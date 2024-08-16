@@ -89,6 +89,8 @@ paths:
       parameters:
         - $ref: "./model.yaml#/components/parameters/bulletId"
         - $ref: "#/components/parameters/fieldMask"
+      requestBody:
+        $ref: "./update-bullet.request.yaml#/components/requestBodies/update"
       responses:
         200:
           description: OK

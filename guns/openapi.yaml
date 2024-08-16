@@ -17,7 +17,7 @@ paths:
         - $ref: "#/components/parameters/gunCategory"
       responses:
         200:
-          $ref: "./fetch-gun.response.yaml#/components/responses/OK"
+          $ref: "./fetch-guns.response.yaml#/components/responses/OK"
         204:
           description: "NoContent"
         500:
@@ -45,6 +45,70 @@ paths:
         500:
           description: "Internal Server Error"
 
+  /api/guns/{gunId}:
+    get:
+      summary: 銃取得
+      description: |-
+        銃取得
+      tags:
+        - guns
+      parameters:
+        - $ref: "#/components/parameters/gunId"
+      responses:
+        200:
+          $ref: "./fetch-gun.response.yaml#/components/responses/OK"
+        400:
+          description: |-
+            Bad Request
+            - 銃IDの形式が不正
+        404:
+          description: "Not Found"
+        500:
+          description: "Internal Server Error"
+    delete:
+      summary: 銃削除
+      description: |-
+        銃削除
+      tags:
+        - guns
+      parameters:
+        - $ref: "#/components/parameters/gunId"
+      responses:
+        204:
+          description: "NoContent"
+        400:
+          description: |-
+            Bad Request
+            - 銃IDの形式が不正
+        404:
+          description: "Not Found"
+        500:
+          description: "Internal Server Error"
+    patch:
+      summary: 銃更新
+      description: |-
+        銃更新
+      tags:
+        - guns
+      parameters:
+        - $ref: "#/components/parameters/gunId"
+        - $ref: "#/components/parameters/fieldMask"
+      requestBody:
+        $ref: "./update-gun.request.yaml#/components/requestBodies/update"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: |-
+            Bad Request
+            - 銃IDの形式が不正
+            - フィールドマスクがない
+            - フィールドマスクの値が不正
+        404:
+          description: "Not Found"
+        500:
+          description: "Internal Server Error"
+
   /api/categories:
     get:
       summary: "銃カテゴリー取得"
@@ -62,6 +126,25 @@ paths:
 
 components:
   parameters:
+    fieldMask:
+      in: query
+      name: "fieldMask"
+      description: |-
+        銃の更新項目
+      required: true
+      schema:
+        type: string
+        enum:
+          - name
+          - category
+          - capacity
+          - bullets
+    gunId:
+      in: path
+      name: "gunId"
+      required: true
+      schema:
+        $ref: "./model.yaml#/components/schemas/gunId"
     gunCategory:
       in: query
       name: "category"

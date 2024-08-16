@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: "銃取得レスポンス"
+  title: "全銃取得"
   version: "1.0"
 paths: {}
 components:
@@ -16,9 +16,6 @@ components:
               - type: object
                 properties:
                   data:
-                    type: object
-                    properties:
-                      gun:
-                        $ref: "./model.yaml#/components/schemas/Gun"
-                    required:
-                      - gun
+                    type: array
+                    items:
+                      $ref: "./model.yaml#/components/schemas/Gun"
