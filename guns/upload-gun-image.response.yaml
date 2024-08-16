@@ -1,0 +1,22 @@
+openapi: 3.0.2
+info:
+  title: "銃画像アップロードレスポンス"
+  version: "1.0"
+paths: {}
+components:
+  responses:
+    Create:
+      description: |-
+        Create
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../commons/model.yaml#/components/schemas/BaseResponse"
+              - type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      url:
+                        $ref: "./model.yaml#/components/schemas/gunImageUrl"

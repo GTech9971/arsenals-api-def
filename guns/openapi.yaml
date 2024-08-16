@@ -4,6 +4,7 @@ info:
   version: "1.0"
 tags:
   - name: "guns"
+  - name: "images"
   - name: "categories"
 paths:
   /api/guns:
@@ -104,6 +105,30 @@ paths:
             - 銃IDの形式が不正
             - フィールドマスクがない
             - フィールドマスクの値が不正
+        404:
+          description: "Not Found"
+        500:
+          description: "Internal Server Error"
+
+  /api/guns/{gunId}/images:
+    post:
+      summary: 銃画像登録
+      description: |-
+        銃画像登録
+      tags:
+        - images
+      parameters:
+        - $ref: "#/components/parameters/gunId"
+      requestBody:
+        $ref: "./upload-gun-image.request.yaml#/components/requestBodies/upload"
+      responses:
+        201:
+          $ref: "./upload-gun-image.response.yaml#/components/responses/Create"
+        400:
+          description: |-
+            Bad Request
+            - 銃IDの形式が不正
+            - 画像データが不正
         404:
           description: "Not Found"
         500:

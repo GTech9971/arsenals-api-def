@@ -1,0 +1,18 @@
+openapi: 3.0.2
+info:
+  title: "銃の画像アップロードリクエスト"
+  version: "1.0"
+paths: {}
+components:
+  requestBodies:
+    upload:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: "./model.yaml#/components/schemas/gunImage"
+            required:
+              - data

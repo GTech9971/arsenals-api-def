@@ -28,6 +28,17 @@ components:
       maximum: 5000
       example: 17
 
+    gunImage:
+      title: 銃の画像
+      type: string
+      format: binary
+
+    gunImageUrl:
+      title: 銃の画像のURL
+      type: string
+      format: uri
+      example: "https://XXXX/glock22.png"
+
     Gun:
       title: 銃
       description: |-
@@ -46,6 +57,8 @@ components:
           $ref: "#/components/schemas/GunCategory"
         capacity:
           $ref: "#/components/schemas/gunCapacity"
+        imageUrl:
+          $ref: "#/components/schemas/gunImageUrl"
         bullets:
           type: array
           items:
