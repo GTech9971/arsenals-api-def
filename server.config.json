@@ -10,6 +10,5 @@
     "useNewtonsoft": false,
     "useSwashbuckle": false,
     "useSeparateModelProject": true,
-    "useCollection": true,
     "returnICollection": true
 }
