@@ -12,6 +12,7 @@ paths:
         弾丸取得
       tags:
         - bullets
+      operationId: "fetchBullets"
       responses:
         200:
           $ref: "./fetch-bullets.yaml#/components/responses/OK"
@@ -25,6 +26,7 @@ paths:
         弾丸登録
       tags:
         - bullets
+      operationId: "registryBullet"
       requestBody:
         $ref: "./registry-bullet.yaml#/components/requestBodies/request"
       responses:
@@ -43,6 +45,7 @@ paths:
         弾丸取得
       tags:
         - bullets
+      operationId: "fetchBullet"
       parameters:
         - $ref: "./model.yaml#/components/parameters/bulletId"
       responses:
@@ -65,6 +68,7 @@ paths:
         - 銃に弾丸が1件でも紐づいている場合は削除不可
       tags:
         - bullets
+      operationId: "deleteBullet"
       parameters:
         - $ref: "./model.yaml#/components/parameters/bulletId"
       responses:
@@ -84,6 +88,7 @@ paths:
         弾丸更新
       tags:
         - bullets
+      operationId: "updateBullet"
       parameters:
         - $ref: "./model.yaml#/components/parameters/bulletId"
         - $ref: "./model.yaml#/components/parameters/fieldMask"
