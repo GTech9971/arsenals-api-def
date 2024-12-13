@@ -2,12 +2,23 @@ openapi: 3.0.2
 info:
   title: "銃操作API"
   version: "1.0"
+  description: |-
+    ## 銃の管理を行うWebAPI定義
+    - 銃の管理
+    - 銃の画像管理
+    - 銃のカテゴリー管理
+    - 弾丸の管理
 tags:
   - name: "guns"
   - name: "images"
   - name: "categories"
+  - name: "bullets"
 servers:
-  - url: "arsenals/api/v1"
+  - url: http://localhost/arsenals/api/{basePath}
+    description: 開発サーバー
+    variables:
+      basePath:
+        default: v1
 paths:
   /guns:
     get:
@@ -214,6 +225,108 @@ paths:
             - フィールドマスクがない
             - フィールドマスクの値が不正
             - 銃カテゴリー名称が被っている
+        404:
+          description: "Not Found"
+        500:
+          description: "Internal Server Error"
+
+  /bullets:
+    get:
+      summary: 弾丸取得
+      description: |-
+        弾丸取得
+      tags:
+        - bullets
+      operationId: "fetchBullets"
+      responses:
+        200:
+          $ref: "./bullets/fetch-bullets.yaml#/components/responses/OK"
+        204:
+          description: "NoContent"
+        500:
+          description: "Internal Server Error"
+    post:
+      summary: 弾丸登録
+      description: |-
+        弾丸登録
+      tags:
+        - bullets
+      operationId: "registryBullet"
+      requestBody:
+        $ref: "./bullets/registry-bullet.yaml#/components/requestBodies/request"
+      responses:
+        201:
+          $ref: "./bullets/registry-bullet.yaml#/components/responses/Create"
+        400:
+          description: |-
+            - 弾丸名が被っている
+        500:
+          description: "Internal Server Error"
+
+  /bullets/{bulletId}:
+    get:
+      summary: 弾丸取得
+      description: |-
+        弾丸取得
+      tags:
+        - bullets
+      operationId: "fetchBullet"
+      parameters:
+        - $ref: "./bullets/model.yaml#/components/parameters/bulletId"
+      responses:
+        200:
+          $ref: "./bullets/fetch-bullet.yaml#/components/responses/OK"
+        400:
+          description: |-
+            BadRequest
+            - 弾丸IDが不正
+        404:
+          description: |-
+            Not Found
+            - 弾丸が存在しない
+        500:
+          description: "Internal Server Error"
+    delete:
+      summary: 弾丸削除
+      description: |-
+        弾丸削除
+        - 銃に弾丸が1件でも紐づいている場合は削除不可
+      tags:
+        - bullets
+      operationId: "deleteBullet"
+      parameters:
+        - $ref: "./bullets/model.yaml#/components/parameters/bulletId"
+      responses:
+        204:
+          description: "NoContent"
+        400:
+          description: |-
+            - 弾丸IDの形式が不正
+            - 弾丸を削除することによって銃に紐づいている弾丸が0件になる場合は削除不可
+        404:
+          description: "Not Found"
+        500:
+          description: "Internal Server Error"
+    patch:
+      summary: 弾丸更新
+      description: |-
+        弾丸更新
+      tags:
+        - bullets
+      operationId: "updateBullet"
+      parameters:
+        - $ref: "./bullets/model.yaml#/components/parameters/bulletId"
+        - $ref: "./bullets/model.yaml#/components/parameters/fieldMask"
+      requestBody:
+        $ref: "./bullets/update-bullet.yaml#/components/requestBodies/update"
+      responses:
+        200:
+          description: OK
+        400:
+          description: |-
+            - 弾丸IDの形式が不正
+            - フィールドマスクがない
+            - 許可されているフィールドマスクの値でない
         404:
           description: "Not Found"
         500:

@@ -2,6 +2,18 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "delete generated",
+            "detail": "自動生成されたフォルダを削除",
+            "command": "rm",
+            "type": "shell",
+            "group": "build",
+            "args": [
+                "-r",
+                "generated-server",
+            ],
+            "problemMatcher": []
+        },
+        {
             "label": "generate - server",
             "detail": "サーバーサイドのコード自動生成",
             "command": "openapi-generator",
@@ -10,13 +22,16 @@
             "args": [
                 "generate",
                 "-i",
-                "${input:apiDef}/openapi.yaml",
+                "./openapi.yaml",
                 "-g",
                 "aspnetcore",
                 "-o",
-                "./${input:apiDef}/generated-server",
+                "./generated-server",
                 "-c",
                 "./server.config.json"
+            ],
+            "dependsOn": [
+                "delete generated"
             ],
             "problemMatcher": []
         },
@@ -29,26 +44,15 @@
             "args": [
                 "generate",
                 "-i",
-                "${input:apiDef}/openapi.yaml",
+                "./openapi.yaml",
                 "-g",
                 "typescript-fetch",
                 "-o",
-                "./${input:apiDef}/generated-client-typescript",
+                "./generated-client-typescript",
                 "-c",
                 "typescript.config.json"
             ],
             "problemMatcher": []
-        }
-    ],
-    "inputs": [
-        {
-            "id": "apiDef",
-            "description": "APIの種類",
-            "type": "pickString",
-            "options": [
-                "guns",
-                "bullets"
-            ]
         }
     ]
 }

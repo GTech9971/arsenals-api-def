@@ -63,8 +63,7 @@ components:
 
     gunCapacity:
       title: 装弾数
-      type: number
-      format: int32
+      type: integer
       minimum: 1
       maximum: 5000
       example: 17

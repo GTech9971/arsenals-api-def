@@ -4,6 +4,4 @@
 
 ## Documentation
 
-[APIドキュメントページ](https://gtech9971.github.io/arsenals-api-def/bullets.html)
-
-[APIドキュメントページ](https://gtech9971.github.io/arsenals-api-def/guns.html)
+[APIドキュメントページ](https://gtech9971.github.io/arsenals-api-def/docs.html)

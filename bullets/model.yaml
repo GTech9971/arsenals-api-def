@@ -35,8 +35,7 @@ components:
 
     Damage:
       title: ダメージ
-      type: number
-      format: int32
+      type: integer
       minimum: 1
       example: 12
 
