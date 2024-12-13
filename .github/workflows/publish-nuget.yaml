@@ -40,29 +40,22 @@ jobs:
 
             # コード生成
             java -jar openapi-generator-cli.jar generate \
-                -i ./guns/openapi.yaml \
+                -i ./openapi.yaml \
                 -g aspnetcore \
-                -o ./guns/generated-server \
-                -c ./server.config.json \
-                --additional-properties=packageVersion=${VERSION}
-
-            java -jar openapi-generator-cli.jar generate \
-                -i ./bullets/openapi.yaml \
-                -g aspnetcore \
-                -o ./bullets/generated-server \
+                -o ./generated-server \
                 -c ./server.config.json \
                 --additional-properties=packageVersion=${VERSION}
 
       # NuGet パッケージの作成
       - name: Build NuGet Package
         run: |
-          cd generated-server/src/VitalStrike.Models
+          cd generated-server/src/Arsenals.Models
           dotnet pack -c Release
 
       # NuGet にパッケージをアップロード
       - name: Publish to NuGet
         run: |
-          cd generated-server/src/VitalStrike.Models
+          cd generated-server/src/Arsenals.Models
           pwd
           dotnet nuget push ./bin/Release/*.nupkg \
             -s https://api.nuget.org/v3/index.json \

@@ -31,9 +31,7 @@ jobs:
         run: npm install -g @redocly/cli
 
       - name: Generate doc from OpenAPI spec
-        run: |-
-            redocly build-docs ./bullets/openapi.yaml -o bullets.html
-            redocly build-docs .guns/openapi.yaml -o guns.html
+        run: redocly build-docs ./openapi.yaml -o docs.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
