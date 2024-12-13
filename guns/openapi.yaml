@@ -6,19 +6,22 @@ tags:
   - name: "guns"
   - name: "images"
   - name: "categories"
+servers:
+  - url: "arsenals/api/v1"
 paths:
-  /api/guns:
+  /guns:
     get:
       summary: 銃取得
       description: |-
         銃取得
       tags:
         - "guns"
+      operationId: "fetchGuns"
       parameters:
         - $ref: "#/components/parameters/gunCategory"
       responses:
         200:
-          $ref: "./fetch-guns.response.yaml#/components/responses/OK"
+          $ref: "./fetch-guns.yaml#/components/responses/OK"
         204:
           description: "NoContent"
         500:
@@ -29,38 +32,39 @@ paths:
         銃登録
       tags:
         - "guns"
+      operationId: "registryGun"
       requestBody:
-        $ref: "./registry-gun.request.yaml#/components/requestBodies/gun"
+        $ref: "./registry-gun.yaml#/components/requestBodies/gun"
       responses:
         201:
-          $ref: "./registry-gun.response.yaml#/components/responses/Create"
+          $ref: "./registry-gun.yaml#/components/responses/Create"
         400:
           description: |-
-            Bad Request
             - 銃の名前が被っている
             - 銃カテゴリーが存在しない
         404:
           description: |-
-            Not Found
             - 指定した弾丸IDが存在しない
+        409:
+          description: 銃IDが被った
         500:
           description: "Internal Server Error"
 
-  /api/guns/{gunId}:
+  /guns/{gunId}:
     get:
       summary: 銃取得
       description: |-
         銃取得
       tags:
         - guns
+      operationId: "fetchGun"
       parameters:
         - $ref: "#/components/parameters/gunId"
       responses:
         200:
-          $ref: "./fetch-gun.response.yaml#/components/responses/OK"
+          $ref: "./fetch-gun.yaml#/components/responses/OK"
         400:
           description: |-
-            Bad Request
             - 銃IDの形式が不正
         404:
           description: "Not Found"
@@ -72,6 +76,7 @@ paths:
         銃削除
       tags:
         - guns
+      operationId: "deleteGun"
       parameters:
         - $ref: "#/components/parameters/gunId"
       responses:
@@ -79,7 +84,6 @@ paths:
           description: "NoContent"
         400:
           description: |-
-            Bad Request
             - 銃IDの形式が不正
         404:
           description: "Not Found"
@@ -91,17 +95,17 @@ paths:
         銃更新
       tags:
         - guns
+      operationId: "updateGun"
       parameters:
         - $ref: "#/components/parameters/gunId"
         - $ref: "#/components/parameters/gunFieldMask"
       requestBody:
-        $ref: "./update-gun.request.yaml#/components/requestBodies/update"
+        $ref: "./update-gun.yaml#/components/requestBodies/update"
       responses:
         200:
           description: "OK"
         400:
           description: |-
-            Bad Request
             - 銃IDの形式が不正
             - フィールドマスクがない
             - フィールドマスクの値が不正
@@ -110,23 +114,23 @@ paths:
         500:
           description: "Internal Server Error"
 
-  /api/guns/{gunId}/images:
+  /guns/{gunId}/images:
     post:
       summary: 銃画像登録
       description: |-
         銃画像登録
       tags:
         - images
+      operationId: "registryGunImage"
       parameters:
         - $ref: "#/components/parameters/gunId"
       requestBody:
-        $ref: "./upload-gun-image.request.yaml#/components/requestBodies/upload"
+        $ref: "./upload-gun-image.yaml#/components/requestBodies/upload"
       responses:
         201:
-          $ref: "./upload-gun-image.response.yaml#/components/responses/Create"
+          $ref: "./upload-gun-image.yaml#/components/responses/Create"
         400:
           description: |-
-            Bad Request
             - 銃IDの形式が不正
             - 画像データが不正
         404:
@@ -134,16 +138,17 @@ paths:
         500:
           description: "Internal Server Error"
 
-  /api/categories:
+  /categories:
     get:
       summary: "銃カテゴリー取得"
       description: |-
         銃カテゴリー取得
       tags:
         - "categories"
+      operationId: "fetchGunCategories"
       responses:
         200:
-          $ref: "./fetch-category.response.yaml#/components/responses/OK"
+          $ref: "./fetch-category.yaml#/components/responses/OK"
         204:
           description: "NoContent"
         500:
@@ -154,6 +159,7 @@ paths:
         銃カテゴリー登録
       tags:
         - "categories"
+      operationId: "registryGunCategory"
       requestBody:
         $ref: "registry-category.yaml#/components/requestBodies/registry"
       responses:
@@ -166,13 +172,14 @@ paths:
         500:
           description: "Internal Server Error"
 
-  /api/categories/{categoryId}:
+  /categories/{categoryId}:
     delete:
       summary: 銃カテゴリー削除
       description: |-
         銃カテゴリー削除
       tags:
         - "categories"
+      operationId: "deleteGunCategory"
       parameters:
         - $ref: "#/components/parameters/categoryId"
       responses:
@@ -180,7 +187,6 @@ paths:
           description: "NoContent"
         400:
           description: |-
-            Bad Request
             - カテゴリーIDの形式が不正
             - 1件でもカテゴリーが銃に紐づいている場合、削除不可
         404:
@@ -193,6 +199,7 @@ paths:
         銃カテゴリー更新
       tags:
         - "categories"
+      operationId: "updateGunCategory"
       parameters:
         - $ref: "#/components/parameters/categoryId"
         - $ref: "#/components/parameters/categoryFieldMask"
@@ -203,7 +210,6 @@ paths:
           description: OK
         400:
           description: |-
-            Bad Request
             - 銃カテゴリーIDの形式が不正
             - フィールドマスクがない
             - フィールドマスクの値が不正

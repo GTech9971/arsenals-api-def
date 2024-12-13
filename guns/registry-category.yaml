@@ -10,28 +10,45 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              name:
-                $ref: "./model.yaml#/components/schemas/gunCategoryName"
-            required:
-              - name
+            $ref: "#/components/schemas/registryGunCategoryRequest"
 
   responses:
     Create:
       description: |-
         Create
+      headers:
+        Location:
+          description: "生成した銃のカテゴリーURL"
+          schema:
+            type: string
+            format: uri
+            example: "/categories/C-0051"
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../commons/model.yaml#/components/schemas/BaseResponse"
-              - type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        $ref: "./model.yaml#/components/schemas/gunCategoryId"
-                    required:
-                      - id
+            $ref: "#/components/schemas/registryGunCategoryResponse"
+
+  schemas:
+    registryGunCategoryRequest:
+      title: 銃カテゴリー登録リクエスト
+      type: object
+      properties:
+        name:
+          $ref: "./model.yaml#/components/schemas/gunCategoryName"
+      required:
+        - name
+
+    registryGunCategoryResponse:
+      title: 銃カテゴリー登録レスポンス
+      type: object
+      allOf:
+        - $ref: "../commons/model.yaml#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                id:
+                  $ref: "./model.yaml#/components/schemas/gunCategoryId"
+              required:
+                - id

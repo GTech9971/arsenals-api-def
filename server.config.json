@@ -1,0 +1,15 @@
+{
+    "aspnetCoreVersion": "8.0",
+    "nullableReferenceTypes": true,
+    "operationIsAsync": true,
+    "operationResultTask": true,
+    "packageName": "Arsenals",
+    "packageTitle": "Arsenals",
+    "isLibrary": true,
+    "generateBody": false,
+    "useNewtonsoft": false,
+    "useSwashbuckle": false,
+    "useSeparateModelProject": true,
+    "useCollection": true,
+    "returnICollection": true
+}

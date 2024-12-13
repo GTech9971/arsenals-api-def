@@ -1,0 +1,27 @@
+openapi: 3.0.2
+info:
+  title: "全銃取得"
+  version: "1.0"
+paths: {}
+components:
+  responses:
+    OK:
+      description: |-
+        OK
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/fetchGunsResponse"
+
+  schemas:
+    fetchGunsResponse:
+      title: 全ての銃取得レスポンス
+      type: object
+      allOf:
+        - $ref: "../commons/model.yaml#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "./model.yaml#/components/schemas/Gun"

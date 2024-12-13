@@ -1,0 +1,66 @@
+openapi: 3.0.2
+info:
+  title: "銃登録レスポンス"
+  version: "1.0"
+paths: {}
+components:
+  requestBodies:
+    gun:
+      description: "銃登録リクエストボディ"
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/registryGunRequest"
+
+  responses:
+    Create:
+      description: |-
+        Create
+      headers:
+        Location:
+          description: 登録した銃のURL
+          schema:
+            type: string
+            format: uri
+            example: "/guns/G-0001"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/registryGunResponse"
+
+  schemas:
+    registryGunRequest:
+      title: 銃登録リクエスト
+      type: object
+      properties:
+        name:
+          $ref: "./model.yaml#/components/schemas/gunName"
+        categoryId:
+          $ref: "./model.yaml#/components/schemas/gunCategoryId"
+        capacity:
+          $ref: "./model.yaml#/components/schemas/gunCapacity"
+        useBullets:
+          title: 使用弾丸ID
+          type: array
+          items:
+            $ref: "../bullets/model.yaml#/components/schemas/bulletId"
+      required:
+        - name
+        - categoryId
+        - capacity
+
+    registryGunResponse:
+      title: 銃登録レスポンス
+      type: object
+      allOf:
+        - $ref: "../commons/model.yaml#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                id:
+                  $ref: "./model.yaml#/components/schemas/gunId"
+              required:
+                - id

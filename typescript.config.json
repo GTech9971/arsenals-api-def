@@ -1,0 +1,5 @@
+{
+    "legacyDiscriminatorBehavior": false,
+    "nullSafeAdditionalProps": true,
+    "supportsES6": true
+}

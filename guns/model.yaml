@@ -7,10 +7,9 @@ components:
   schemas:
     gunId:
       title: 銃ID
-      type: number
-      format: int
-      example: 100
-      minimum: 100
+      type: string
+      pattern: '^G-\d{4}$'
+      example: "G-0015"
 
     gunName:
       title: 銃名称
@@ -37,7 +36,7 @@ components:
       title: 銃の画像のURL
       type: string
       format: uri
-      example: "https://XXXX/glock22.png"
+      example: "https://arsenals/assets/guns/images/G-0001/glock22.png"
 
     Gun:
       title: 銃
@@ -66,10 +65,9 @@ components:
 
     gunCategoryId:
       title: 銃カテゴリーID
-      type: number
-      format: int
-      example: 100
-      minimum: 100
+      type: string
+      pattern: '^C-\d{4}$'
+      example: "C-0051"
 
     gunCategoryName:
       title: 銃カテゴリー名

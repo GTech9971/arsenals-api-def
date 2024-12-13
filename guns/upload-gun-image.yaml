@@ -1,0 +1,50 @@
+openapi: 3.0.2
+info:
+  title: "銃の画像アップロード"
+  version: "1.0"
+paths: {}
+components:
+  requestBodies:
+    upload:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            $ref: "#/components/schemas/uploadGunImageRequest"
+
+  responses:
+    Create:
+      description: |-
+        Create
+      headers:
+        Location:
+          description: "生成した銃の画像URL"
+          schema:
+            $ref: "./model.yaml#/components/schemas/gunImageUrl"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/uploadGunImageResponse"
+
+  schemas:
+    uploadGunImageRequest:
+      title: 銃の画像アップロードリクエスト
+      type: object
+      properties:
+        data:
+          $ref: "./model.yaml#/components/schemas/gunImage"
+      required:
+        - data
+
+    uploadGunImageResponse:
+      title: 銃の画像アップロードレスポンス
+      type: object
+      allOf:
+        - $ref: "../commons/model.yaml#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                url:
+                  $ref: "./model.yaml#/components/schemas/gunImageUrl"

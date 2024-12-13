@@ -9,14 +9,11 @@ components:
       title: レスポンス
       type: object
       properties:
-        success:
-          title: 成功かどうか
-          type: boolean
-          example: true
-        data:
-          title: データ
+        error:
+          title: エラー情報
           type: object
-        message:
-          title: メッセージ
-          type: string
-          example: null
+          properties:
+            message:
+              title: メッセージ
+              type: string
+              example: null

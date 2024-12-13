@@ -10,9 +10,14 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              name:
-                $ref: "./model.yaml#/components/schemas/gunCategoryName"
-            required:
-              - name
+            $ref: "#/components/schemas/updateGunCategoryRequest"
+
+  schemas:
+    updateGunCategoryRequest:
+      title: 銃カテゴリー更新リクエスト
+      type: object
+      properties:
+        name:
+          $ref: "./model.yaml#/components/schemas/gunCategoryName"
+      required:
+        - name
