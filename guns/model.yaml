@@ -4,6 +4,48 @@ info:
   version: "1.0"
 paths: {}
 components:
+  parameters:
+    gunFieldMask:
+      in: query
+      name: "fieldMask"
+      description: |-
+        銃の更新項目
+      required: true
+      schema:
+        type: string
+        enum:
+          - name
+          - category
+          - capacity
+          - bullets
+    gunId:
+      in: path
+      name: "gunId"
+      required: true
+      schema:
+        $ref: "#/components/schemas/gunId"
+    gunCategory:
+      in: query
+      name: "category"
+      required: false
+      schema:
+        $ref: "#/components/schemas/gunCategoryId"
+
+    categoryFieldMask:
+      name: "fieldMask"
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+          - name
+    categoryId:
+      in: path
+      name: "categoryId"
+      required: true
+      schema:
+        $ref: "#/components/schemas/gunCategoryId"
+
   schemas:
     gunId:
       title: 銃ID
@@ -22,7 +64,7 @@ components:
     gunCapacity:
       title: 装弾数
       type: number
-      format: int
+      format: int32
       minimum: 1
       maximum: 5000
       example: 17

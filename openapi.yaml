@@ -18,10 +18,10 @@ paths:
         - "guns"
       operationId: "fetchGuns"
       parameters:
-        - $ref: "#/components/parameters/gunCategory"
+        - $ref: "./guns/model.yaml#/components/parameters/gunCategory"
       responses:
         200:
-          $ref: "./fetch-guns.yaml#/components/responses/OK"
+          $ref: "./guns/fetch-guns.yaml#/components/responses/OK"
         204:
           description: "NoContent"
         500:
@@ -34,10 +34,10 @@ paths:
         - "guns"
       operationId: "registryGun"
       requestBody:
-        $ref: "./registry-gun.yaml#/components/requestBodies/gun"
+        $ref: "./guns/registry-gun.yaml#/components/requestBodies/gun"
       responses:
         201:
-          $ref: "./registry-gun.yaml#/components/responses/Create"
+          $ref: "./guns/registry-gun.yaml#/components/responses/Create"
         400:
           description: |-
             - 銃の名前が被っている
@@ -59,10 +59,10 @@ paths:
         - guns
       operationId: "fetchGun"
       parameters:
-        - $ref: "#/components/parameters/gunId"
+        - $ref: "./guns/model.yaml#/components/parameters/gunId"
       responses:
         200:
-          $ref: "./fetch-gun.yaml#/components/responses/OK"
+          $ref: "./guns/fetch-gun.yaml#/components/responses/OK"
         400:
           description: |-
             - 銃IDの形式が不正
@@ -78,7 +78,7 @@ paths:
         - guns
       operationId: "deleteGun"
       parameters:
-        - $ref: "#/components/parameters/gunId"
+        - $ref: "./guns/model.yaml#/components/parameters/gunId"
       responses:
         204:
           description: "NoContent"
@@ -97,10 +97,10 @@ paths:
         - guns
       operationId: "updateGun"
       parameters:
-        - $ref: "#/components/parameters/gunId"
-        - $ref: "#/components/parameters/gunFieldMask"
+        - $ref: "./guns/model.yaml#/components/parameters/gunId"
+        - $ref: "./guns/model.yaml#/components/parameters/gunFieldMask"
       requestBody:
-        $ref: "./update-gun.yaml#/components/requestBodies/update"
+        $ref: "./guns/update-gun.yaml#/components/requestBodies/update"
       responses:
         200:
           description: "OK"
@@ -123,12 +123,12 @@ paths:
         - images
       operationId: "registryGunImage"
       parameters:
-        - $ref: "#/components/parameters/gunId"
+        - $ref: "./guns/model.yaml#/components/parameters/gunId"
       requestBody:
-        $ref: "./upload-gun-image.yaml#/components/requestBodies/upload"
+        $ref: "./guns/upload-gun-image.yaml#/components/requestBodies/upload"
       responses:
         201:
-          $ref: "./upload-gun-image.yaml#/components/responses/Create"
+          $ref: "./guns/upload-gun-image.yaml#/components/responses/Create"
         400:
           description: |-
             - 銃IDの形式が不正
@@ -148,7 +148,7 @@ paths:
       operationId: "fetchGunCategories"
       responses:
         200:
-          $ref: "./fetch-category.yaml#/components/responses/OK"
+          $ref: "./guns/fetch-category.yaml#/components/responses/OK"
         204:
           description: "NoContent"
         500:
@@ -161,10 +161,10 @@ paths:
         - "categories"
       operationId: "registryGunCategory"
       requestBody:
-        $ref: "registry-category.yaml#/components/requestBodies/registry"
+        $ref: "./guns/registry-category.yaml#/components/requestBodies/registry"
       responses:
         201:
-          $ref: "registry-category.yaml#/components/responses/Create"
+          $ref: "./guns/registry-category.yaml#/components/responses/Create"
         400:
           description: |-
             Bad Request
@@ -181,7 +181,7 @@ paths:
         - "categories"
       operationId: "deleteGunCategory"
       parameters:
-        - $ref: "#/components/parameters/categoryId"
+        - $ref: "./guns/model.yaml#/components/parameters/categoryId"
       responses:
         204:
           description: "NoContent"
@@ -201,10 +201,10 @@ paths:
         - "categories"
       operationId: "updateGunCategory"
       parameters:
-        - $ref: "#/components/parameters/categoryId"
-        - $ref: "#/components/parameters/categoryFieldMask"
+        - $ref: "./guns/model.yaml#/components/parameters/categoryId"
+        - $ref: "./guns/model.yaml#/components/parameters/categoryFieldMask"
       requestBody:
-        $ref: "./update-category.yaml#/components/requestBodies/update"
+        $ref: "./guns/update-category.yaml#/components/requestBodies/update"
       responses:
         200:
           description: OK
@@ -218,46 +218,3 @@ paths:
           description: "Not Found"
         500:
           description: "Internal Server Error"
-
-components:
-  parameters:
-    gunFieldMask:
-      in: query
-      name: "fieldMask"
-      description: |-
-        銃の更新項目
-      required: true
-      schema:
-        type: string
-        enum:
-          - name
-          - category
-          - capacity
-          - bullets
-    gunId:
-      in: path
-      name: "gunId"
-      required: true
-      schema:
-        $ref: "./model.yaml#/components/schemas/gunId"
-    gunCategory:
-      in: query
-      name: "category"
-      required: false
-      schema:
-        $ref: "./model.yaml#/components/schemas/gunCategoryId"
-
-    categoryFieldMask:
-      name: "fieldMask"
-      in: query
-      required: true
-      schema:
-        type: string
-        enum:
-          - name
-    categoryId:
-      in: path
-      name: "categoryId"
-      required: true
-      schema:
-        $ref: "./model.yaml#/components/schemas/gunCategoryId"

@@ -1,0 +1,46 @@
+name: Deploy API Docs
+
+on:
+  push:
+    branches:
+      - main
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-and-deploy-api-doc:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+        contents: write
+        pages: write
+        id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      
+      - name: Install Redoc CLI
+        run: npm install -g @redocly/cli
+
+      - name: Generate doc from OpenAPI spec
+        run: |-
+            redocly build-docs ./bullets/openapi.yaml -o bullets.html
+            redocly build-docs .guns/openapi.yaml -o guns.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -14,10 +14,9 @@ components:
 
     bulletId:
       title: 弾丸ID
-      type: number
-      format: int
-      minimum: 100
-      example: 100
+      type: string
+      pattern: "^B-d{4}$"
+      example: "B-0003"
 
     Bullet:
       title: 弾丸
@@ -37,7 +36,7 @@ components:
     Damage:
       title: ダメージ
       type: number
-      format: int
+      format: int32
       minimum: 1
       example: 12
 
@@ -48,3 +47,16 @@ components:
       required: true
       schema:
         $ref: "#/components/parameters/bulletId"
+
+    fieldMask:
+      name: "fieldMask"
+      in: query
+      allowEmptyValue: false
+      description: |-
+        弾丸更新の項目
+      required: true
+      schema:
+        type: string
+        enum:
+          - "damage"
+          - "name"

@@ -1,0 +1,57 @@
+openapi: 3.0.2
+info:
+  title: "弾丸登録"
+  version: "1.0"
+paths: {}
+components:
+  requestBodies:
+    request:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/registryBulletRequest"
+
+  responses:
+    Create:
+      description: |-
+        Create
+      headers:
+        Location:
+          description: 生成した弾丸のURL
+          schema:
+            type: string
+            format: uri
+            example: "bullets/B-0003"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/registryBulletResponse"
+
+  schemas:
+    registryBulletRequest:
+      title: 弾丸登録リクエスト
+      type: object
+      properties:
+        name:
+          $ref: "./model.yaml#/components/schemas/bulletName"
+        damage:
+          $ref: "./model.yaml#/components/schemas/Damage"
+      required:
+        - name
+        - damage
+
+    registryBulletResponse:
+      title: 弾丸登録レスポンス
+      type: object
+      allOf:
+        - $ref: "../commons/model.yaml#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                id:
+                  $ref: "./model.yaml#/components/schemas/bulletId"
+              required:
+                - id
