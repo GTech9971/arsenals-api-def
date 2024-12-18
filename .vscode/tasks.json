@@ -8,7 +8,7 @@
             "type": "shell",
             "group": "build",
             "args": [
-                "-r",
+                "-rf",
                 "generated-server",
             ],
             "problemMatcher": []
@@ -28,7 +28,9 @@
                 "-o",
                 "./generated-server",
                 "-c",
-                "./server.config.json"
+                "./server.config.json",
+                "--model-name-suffix",
+                "Model"
             ],
             "dependsOn": [
                 "delete generated"

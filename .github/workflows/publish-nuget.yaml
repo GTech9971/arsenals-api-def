@@ -44,7 +44,8 @@ jobs:
                 -g aspnetcore \
                 -o ./generated-server \
                 -c ./server.config.json \
-                --additional-properties=packageVersion=${VERSION}
+                --additional-properties=packageVersion=${VERSION} \
+                --model-name-suffix Model
 
       # NuGet パッケージの作成
       - name: Build NuGet Package
