@@ -45,7 +45,7 @@ components:
       in: path
       required: true
       schema:
-        $ref: "#/components/parameters/bulletId"
+        $ref: "#/components/schemas/bulletId"
 
     fieldMask:
       name: "fieldMask"

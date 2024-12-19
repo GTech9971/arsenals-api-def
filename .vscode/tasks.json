@@ -2,6 +2,36 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "validate",
+            "detail": "openapiファイルのバリデーション",
+            "command": "openapi-generator",
+            "type": "shell",
+            "group": "test",
+            "args": [
+                "validate",
+                "-i",
+                "root.yaml",
+            ],
+            "problemMatcher": [],
+            "dependsOn": [
+                "bundle"
+            ]
+        },
+        {
+            "label": "bundle",
+            "detail": "openapiファイルを1ファイルに固める",
+            "command": "redocly",
+            "type": "shell",
+            "group": "build",
+            "args": [
+                "bundle",
+                "openapi.yaml",
+                "--output",
+                "root.yaml"
+            ],
+            "problemMatcher": []
+        },
+        {
             "label": "delete generated",
             "detail": "自動生成されたフォルダを削除",
             "command": "rm",
@@ -14,7 +44,7 @@
             "problemMatcher": []
         },
         {
-            "label": "generate - server",
+            "label": "generate - server:c#",
             "detail": "サーバーサイドのコード自動生成",
             "command": "openapi-generator",
             "type": "shell",
@@ -22,18 +52,19 @@
             "args": [
                 "generate",
                 "-i",
-                "./openapi.yaml",
+                "root.yaml",
                 "-g",
                 "aspnetcore",
                 "-o",
-                "./generated-server",
+                "generated-server",
                 "-c",
-                "./server.config.json",
+                "server.config.json",
                 "--model-name-suffix",
                 "Model"
             ],
             "dependsOn": [
-                "delete generated"
+                "delete generated",
+                "bundle"
             ],
             "problemMatcher": []
         },
@@ -46,15 +77,18 @@
             "args": [
                 "generate",
                 "-i",
-                "./openapi.yaml",
+                "root.yaml",
                 "-g",
                 "typescript-fetch",
                 "-o",
-                "./generated-client-typescript",
+                "generated-client-typescript",
                 "-c",
                 "typescript.config.json"
             ],
-            "problemMatcher": []
+            "problemMatcher": [],
+            "dependsOn": [
+                "bundle",
+            ]
         }
     ]
 }
