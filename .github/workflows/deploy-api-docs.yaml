@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - openapi.yaml
-      - ./**/*.yaml
 defaults:
   run:
     shell: bash
