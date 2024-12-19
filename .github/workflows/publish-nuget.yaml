@@ -27,6 +27,12 @@ jobs:
 
           VERSION=${LATEST_TAG#v}
           echo "version=${VERSION}" >> "${GITHUB_OUTPUT}" 
+      
+      - name: Install Redoc CLI
+        run: npm install -g @redocly/cli
+      
+      - name: bundle openapi.yaml
+        run: redocly bundle openapi.yaml --output root.yaml
 
       # OpenAPI Generator を実行してコードを生成
       - name: Generate code from OpenAPI spec
@@ -36,11 +42,11 @@ jobs:
             # 必要に応じて OpenAPI Generator CLI をインストール
             curl -L https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/7.10.0/openapi-generator-cli-7.10.0.jar -o openapi-generator-cli.jar
             
-            java -jar openapi-generator-cli.jar validate -i ./openapi.yaml
+            java -jar openapi-generator-cli.jar validate -i ./root.yaml
 
             # コード生成
             java -jar openapi-generator-cli.jar generate \
-                -i ./openapi.yaml \
+                -i ./root.yaml \
                 -g aspnetcore \
                 -o ./generated-server \
                 -c ./server.config.json \
