@@ -23,7 +23,7 @@ components:
           schema:
             type: string
             format: uri
-            example: "/guns/G-0001"
+            example: "guns/G-0001"
       content:
         application/json:
           schema:
