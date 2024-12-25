@@ -14,11 +14,8 @@ tags:
   - name: "categories"
   - name: "bullets"
 servers:
-  - url: http://localhost/arsenals/api/{basePath}
+  - url: http://localhost:5000/api/v1/arsenals
     description: 開発サーバー
-    variables:
-      basePath:
-        default: v1
 paths:
   /guns:
     get:
