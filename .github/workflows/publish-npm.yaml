@@ -66,8 +66,10 @@ jobs:
       # npmパッケージ公開
       - name: publish to npm
         run: |
+          cat .npmrc
+          cp .npmrc generated-client-typescript/.npmrc 
           cd generated-client-typescript
           npm install
           npm publish
         env:
-          NODE_AUTH_TOKEN : ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN : ${{ secrets.GITHUB_TOKEN }}
