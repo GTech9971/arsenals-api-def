@@ -56,13 +56,17 @@ jobs:
                 --git-repo-id=arsenals-api-def \
                 --additional-properties=npmVersion=${VERSION}
 
-      # npmパッケージを公開
+      # npmのログイン
       - uses: actions/setup-node@v4
         with:
           node-version: 21 # Node.js のバージョン
           registry-url: http://npm.pkg.github.com
           scope: '@GTech9971'
-      - run: |
+      
+      # npmパッケージ公開
+      - name: publish to npm
+        run: |
+          cp .npmrc ./generated-client-typescript
           cd generated-client-typescript
           npm install
           npm publish
