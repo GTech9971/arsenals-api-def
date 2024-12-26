@@ -50,7 +50,6 @@ jobs:
             java -jar openapi-generator-cli.jar generate \
                 -i ./root.yaml \
                 -g typescript-fetch \
-                -o ./generated-client-typescript \
                 -c ./typescript.config.json \
                 --git-user-id=GTech9971 \
                 --git-repo-id=arsenals-api-def \
@@ -66,8 +65,6 @@ jobs:
       # npmパッケージ公開
       - name: publish to npm
         run: |
-          cp .npmrc ./generated-client-typescript
-          cd generated-client-typescript
           npm install
           npm publish
         env:
