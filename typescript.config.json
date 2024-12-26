@@ -3,5 +3,5 @@
     "nullSafeAdditionalProps": true,
     "supportsES6": true,
     "npmName": "@GTech9971/arsenals.models",
-    "npmRepository": "https://github.com/GTech9971/arsenal-api-def.git"
+    "npmRepository": "https://github.com/GTech9971/arsenals-api-def.git"
 }
