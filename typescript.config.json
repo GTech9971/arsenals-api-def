@@ -2,5 +2,6 @@
     "legacyDiscriminatorBehavior": false,
     "nullSafeAdditionalProps": true,
     "supportsES6": true,
-    "npmName": "@gtech9971/arsenals.models"
+    "npmName": "@GTech9971/arsenals.models",
+    "npmRepository": "https://github.com/GTech9971/arsenal-api-def.git"
 }
