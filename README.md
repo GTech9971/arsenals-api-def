@@ -4,7 +4,7 @@
 
 ## Documentation
 
-[APIドキュメントページ](https://gtech9971.github.io/arsenals-api-def/docs.html)
+[APIドキュメントページ](https://gtech9971.github.io/arsenals-api-def/)
 
 ## openapi-generator
 
