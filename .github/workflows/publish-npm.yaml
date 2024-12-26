@@ -66,8 +66,8 @@ jobs:
       # npmパッケージ公開
       - name: publish to npm
         run: |
-          cat .npmrc
-          cp .npmrc generated-client-typescript/.npmrc 
+          cat /home/runner/work/_temp/.npmrc
+          cp /home/runner/work/_temp/.npmrc generated-client-typescript/.npmrc 
           cd generated-client-typescript
           npm install
           npm publish
