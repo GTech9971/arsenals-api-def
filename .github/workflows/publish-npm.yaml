@@ -17,6 +17,16 @@ jobs:
       # リポジトリをチェックアウト
       - name: Checkout code
         uses: actions/checkout@v3
+      
+      # git tag からバージョン取得
+      - name: Create version from git tag
+        id: fetch-version
+        run: |
+          LATEST_TAG=${{github.ref_name}}
+          echo ${LATEST_TAG}
+
+          VERSION=${LATEST_TAG#v}
+          echo "version=${VERSION}" >> "${GITHUB_OUTPUT}" 
 
       # Node.js をセットアップ
       - name: Setup Node.js
@@ -52,7 +62,7 @@ jobs:
                 -c ./typescript.config.json \
                 --git-user-id=GTech9971 \
                 --git-repo-id=arsenals-api-def \
-                --additional-properties=snapshot=true
+                --additional-properties=npmVersion=${VERSION}
 
       # npm パッケージの作成
       - name: Build npm Package

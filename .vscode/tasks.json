@@ -93,7 +93,7 @@
                 "typescript.config.json",
                 "--git-user-id=GTech9971",
                 "--git-repo-id=arsenals-api-def",
-                "--additional-properties=snapshot=true"
+                "--additional-properties=npmVersion=1.0.0"
             ],
             "dependsOn": [
                 "delete generated - client",
