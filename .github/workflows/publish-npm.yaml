@@ -62,7 +62,9 @@ jobs:
           node-version: 21 # Node.js のバージョン
           registry-url: http://npm.pkg.github.com
           scope: '@GTech9971'
-      - run: cd generated-client-typescript
-      - run: npm publish
+      - run: |
+          cd generated-client-typescript
+          npm install
+          npm publish
         env:
           NODE_AUTH_TOKEN : ${{ secrets.GITHUB_TOKEN }}
