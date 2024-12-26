@@ -1,15 +1,10 @@
 name: Publish npm Package
 
 on:
-  # push:
-  #   tags:
-  #     - 'v[0-9]+.[0-9]+.[0-9]+'
-    workflow_dispatch:
-      inputs:
-        version:
-            type: string
-            required: true
-            description: npm version
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
 defaults:
   run:
     shell: bash
@@ -27,15 +22,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      # # git tag からバージョン取得
-      # - name: Create version from git tag
-      #   id: fetch-version
-      #   run: |
-      #     LATEST_TAG=${{github.ref_name}}
-      #     echo ${LATEST_TAG}
+      # git tag からバージョン取得
+      - name: Create version from git tag
+        id: fetch-version
+        run: |
+          LATEST_TAG=${{github.ref_name}}
+          echo ${LATEST_TAG}
 
-      #     VERSION=${LATEST_TAG#v}
-      #     echo "version=${VERSION}" >> "${GITHUB_OUTPUT}" 
+          VERSION=${LATEST_TAG#v}
+          echo "version=${VERSION}" >> "${GITHUB_OUTPUT}" 
 
             
       - name: Install Redoc CLI
@@ -60,7 +55,7 @@ jobs:
                 -c ./typescript.config.json \
                 --git-user-id=GTech9971 \
                 --git-repo-id=arsenals-api-def \
-                --additional-properties=npmVersion=${{inputs.version}}
+                --additional-properties=npmVersion=${VERSION}
 
       # npmのログイン
       - uses: actions/setup-node@v4
