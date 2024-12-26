@@ -10,10 +10,15 @@ components:
       type: object
       properties:
         error:
-          title: エラー情報
-          type: object
-          properties:
-            message:
-              title: メッセージ
-              type: string
-              example: null
+          $ref: "#/components/schemas/Error"
+
+    Error:
+      title: エラー
+      type: object
+      properties:
+        message:
+          title: メッセージ
+          type: string
+          example: null
+      required:
+        - message

@@ -1,5 +1,6 @@
 {
     "legacyDiscriminatorBehavior": false,
     "nullSafeAdditionalProps": true,
-    "supportsES6": true
+    "supportsES6": true,
+    "npmName": "@gtech9971/arsenals.models"
 }

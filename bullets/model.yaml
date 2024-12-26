@@ -39,6 +39,13 @@ components:
       minimum: 1
       example: 12
 
+    updateBulletFieldMask:
+      title: 弾丸用フィールドマスク
+      type: string
+      enum:
+        - "damage"
+        - "name"
+
   parameters:
     bulletId:
       name: "bulletId"
@@ -55,7 +62,4 @@ components:
         弾丸更新の項目
       required: true
       schema:
-        type: string
-        enum:
-          - "damage"
-          - "name"
+        $ref: "#/components/schemas/updateBulletFieldMask"

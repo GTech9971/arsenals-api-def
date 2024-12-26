@@ -12,7 +12,6 @@
                 "-i",
                 "root.yaml",
             ],
-            "problemMatcher": [],
             "dependsOn": [
                 "bundle"
             ]
@@ -28,11 +27,10 @@
                 "openapi.yaml",
                 "--output",
                 "root.yaml"
-            ],
-            "problemMatcher": []
+            ]
         },
         {
-            "label": "delete generated",
+            "label": "delete generated - server",
             "detail": "自動生成されたフォルダを削除",
             "command": "rm",
             "type": "shell",
@@ -40,8 +38,18 @@
             "args": [
                 "-rf",
                 "generated-server",
-            ],
-            "problemMatcher": []
+            ]
+        },
+        {
+            "label": "delete generated - client",
+            "detail": "自動生成されたフォルダを削除",
+            "command": "rm",
+            "type": "shell",
+            "group": "build",
+            "args": [
+                "-rf",
+                "generated-client-typescript",
+            ]
         },
         {
             "label": "generate - server:c#",
@@ -63,10 +71,9 @@
                 "Model"
             ],
             "dependsOn": [
-                "delete generated",
+                "delete generated - server",
                 "bundle"
             ],
-            "problemMatcher": []
         },
         {
             "label": "generate - client:typescript",
@@ -83,12 +90,47 @@
                 "-o",
                 "generated-client-typescript",
                 "-c",
-                "typescript.config.json"
+                "typescript.config.json",
+                "--git-user-id=GTech9971",
+                "--git-repo-id=arsenals-api-def",
+                "--additional-properties=snapshot=true"
             ],
-            "problemMatcher": [],
             "dependsOn": [
+                "delete generated - client",
                 "bundle",
             ]
+        },
+        {
+            "label": "npm install",
+            "command": "npm",
+            "type": "shell",
+            "group": "build",
+            "args": [
+                "install"
+            ],
+            "options": {
+                "cwd": "generated-client-typescript"
+            }
+        },
+        {
+            "label": "npm publish dry",
+            "detail": "フロントエンドのコード自動生成結果をpublish可能か確認する",
+            "command": "npm",
+            "type": "shell",
+            "group": "build",
+            "args": [
+                "publish",
+                "--dry-run",
+            ],
+            "options": {
+                "cwd": "generated-client-typescript"
+            },
+            "dependsOn": [
+                "generate - client:typescript",
+                "npm install"
+            ],
+            //並列事項を拒否
+            "dependsOrder": "sequence"
         }
     ]
 }

@@ -12,18 +12,15 @@ components:
         銃の更新項目
       required: true
       schema:
-        type: string
-        enum:
-          - name
-          - category
-          - capacity
-          - bullets
+        $ref: "#/components/schemas/updateGunFieldMask"
+
     gunId:
       in: path
       name: "gunId"
       required: true
       schema:
         $ref: "#/components/schemas/gunId"
+
     gunCategory:
       in: query
       name: "category"
@@ -36,9 +33,8 @@ components:
       in: query
       required: true
       schema:
-        type: string
-        enum:
-          - name
+        $ref: "#/components/schemas/updateCategoryFieldMask"
+
     categoryId:
       in: path
       name: "categoryId"
@@ -47,6 +43,15 @@ components:
         $ref: "#/components/schemas/gunCategoryId"
 
   schemas:
+    updateGunFieldMask:
+      title: 銃更新用フィールドマスク
+      type: string
+      enum:
+        - name
+        - category
+        - capacity
+        - bullets
+
     gunId:
       title: 銃ID
       type: string
@@ -115,6 +120,12 @@ components:
       type: string
       example: "ハンドガン"
       maxLength: 50
+
+    updateCategoryFieldMask:
+      title: 銃カテゴリー更新用フィールドマスク
+      type: string
+      enum:
+        - name
 
     GunCategory:
       title: カテゴリー
