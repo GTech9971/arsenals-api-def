@@ -1,0 +1,69 @@
+name: Publish npm Package
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      # リポジトリをチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Node.js をセットアップ
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 21 # Node.js のバージョン
+          registry-url: https://registry.npmjs.org/
+      
+      # npm login
+      - name: Log in to npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_API_TOKEN }}" > ~/.npmrc
+  
+            
+      - name: Install Redoc CLI
+        run: npm install -g @redocly/cli
+      
+      - name: Bundle openapi.yaml
+        run: redocly bundle openapi.yaml --output root.yaml
+
+      # OpenAPI Generator を実行してコードを生成
+      - name: Generate code from OpenAPI spec
+        run: |
+            # 必要に応じて OpenAPI Generator CLI をインストール
+            curl -L https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/7.10.0/openapi-generator-cli-7.10.0.jar -o openapi-generator-cli.jar
+            
+            java -jar openapi-generator-cli.jar validate -i ./root.yaml
+
+            # コード生成
+            java -jar openapi-generator-cli.jar generate \
+                -i ./root.yaml \
+                -g typescript-fetch \
+                -o ./generated-client-typescript \
+                -c ./typescript.config.json \
+                --git-user-id=GTech9971 \
+                --git-repo-id=arsenals-api-def \
+                --additional-properties=snapshot=true
+
+      # npm パッケージの作成
+      - name: Build npm Package
+        working-directory: generated-client-typescript
+        run: |
+          npm install
+          npm publish --dry-run
+
+      # npm にパッケージをアップロード
+      - name: Publish to npm
+        working-directory: generated-client-typescript
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN : ${{ secrets.NPM_API_KEY }}
