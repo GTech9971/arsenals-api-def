@@ -11,12 +11,15 @@ defaults:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
     timeout-minutes: 5
 
     steps:
       # リポジトリをチェックアウト
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       # git tag からバージョン取得
       - name: Create version from git tag
@@ -30,7 +33,7 @@ jobs:
 
       # Node.js をセットアップ
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 21 # Node.js のバージョン
           registry-url: http://npm.pkg.github.com
@@ -70,8 +73,6 @@ jobs:
       # npm にパッケージをアップロード
       - name: Publish to npm
         working-directory: generated-client-typescript
-        run: |
-          NPM_CONFIG_USERCONFIG=`pwd`/.npmrc
-          npm publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN : ${{ secrets.GITHUB_TOKEN }}
