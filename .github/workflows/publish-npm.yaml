@@ -60,7 +60,6 @@ jobs:
                 -c ./typescript.config.json \
                 --git-user-id=GTech9971 \
                 --git-repo-id=arsenals-api-def \
-                #--additional-properties=npmVersion=${VERSION}
                 --additional-properties=npmVersion=${{inputs.version}}
 
       # npmのログイン
