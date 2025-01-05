@@ -14,8 +14,10 @@ tags:
   - name: "categories"
   - name: "bullets"
 servers:
-  - url: http://localhost:5000/api/v1/arsenals
+  - url: http://localhost:5000/arsenals/api/v1
     description: 開発サーバー
+  - url: https://nukomabo.work/arsenals/api/v1
+    description: 本番サーバー
 paths:
   /guns:
     get:
